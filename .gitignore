@@ -1,6 +1,6 @@
-CVS/*
-.dep/*
-obj/*
+*/CVS/*
+*/.dep/*
+*/obj/*
 *.o
 *.elf
 *.a
@@ -11,3 +11,4 @@ obj/*
 *.lss
 *~
 *.#*
+*.swp
