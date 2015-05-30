@@ -4,6 +4,7 @@
 *.o
 *.elf
 *.a
+*.a43
 *.lst
 *.bin
 *.hex
