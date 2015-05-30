@@ -1,0 +1,13 @@
+CVS/*
+.dep/*
+obj/*
+*.o
+*.elf
+*.a
+*.lst
+*.bin
+*.hex
+*.map
+*.lss
+*~
+*.#*
