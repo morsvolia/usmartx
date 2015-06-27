@@ -15,13 +15,13 @@ CROSS_COMPILE = /opt/msp430-gcc-linux-3.3.4/bin/msp430-elf-
     MOVE = mv
 
 # MCU name
-	MCU = msp430x2013
+	MCU = msp430f2252
 
 # Output format. Can be [srec|ihex].
     FORMAT = ihex
 
 # Target file name (without extension).
-	TARGET = libusmartx
+	TARGET = libusmartx_$(MCU)
 
 # List C source files here.
 	SRC =	$(uSMARTX_SRC_DIR)usmartx.c \
