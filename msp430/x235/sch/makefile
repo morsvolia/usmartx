@@ -1,6 +1,6 @@
 # Makefile for MSP430 target
-CROSS_DIR = /opt/msp430-gcc-linux-3.3.4
-CROSS_COMPILE = $(CROSS_DIR)/bin/msp430-elf-
+CROSS_DIR = /opt/msp430-gcc-lts-4_6
+CROSS_COMPILE = $(CROSS_DIR)/bin/msp430-
 # Define directories.	
 	uSMARTX_INC_DIR = ../../../inc
 	uSMARTX_LIB_DIR = ../lib

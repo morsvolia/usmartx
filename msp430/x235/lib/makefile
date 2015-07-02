@@ -1,5 +1,6 @@
 # Makefile for MSP430 target
-CROSS_COMPILE = /opt/msp430-gcc-linux-3.3.4/bin/msp430-elf-
+CROSS_DIR=/opt/msp430-gcc-lts-4_6
+CROSS_COMPILE = $(CROSS_DIR)/bin/msp430-
 # Define directories.	
 	uSMARTX_INC_DIR = ../../../inc/
 	uSMARTX_SRC_DIR = ../../../src/
@@ -30,12 +31,13 @@ CROSS_COMPILE = /opt/msp430-gcc-linux-3.3.4/bin/msp430-elf-
 			$(uSMARTX_SRC_DIR)semaphore.c \
 			$(uSMARTX_SRC_DIR)mballoc.c \
 			$(uSMARTX_SRC_DIR)cycbuff.c \
+			$(uSMARTX_HAL_DIR)hal_gnu.c
 					
 # List Assembler source files here.
-	ASRC = $(uSMARTX_HAL_DIR)hal_gnu.s
+	ASRC = 
 
 # Compiler flags.
-	CPFLAGS = -c -g -O2 -Wall
+	CPFLAGS = -c -g -O2 -Wall -I$(CROSS_DIR)/include
 	
 # Assembler flags.
     ASFLAGS = -Wa,-ahlms=$(<:.s=.lst),--gstabs  
@@ -90,6 +92,7 @@ Clean :
 	$(REMOVE) $(LST)
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(TARGET).a
+	$(REMOVE) .dep/*.d
 	
 # Target clear output files
 .SILENT : clear_output

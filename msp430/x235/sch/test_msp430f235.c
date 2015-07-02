@@ -8,8 +8,8 @@ __interrupt(TIMERB0_VECTOR) tmrb_isr(void){
     uSMARTX_Tick();
 }
 
-TSK_CREATE(tsk_led1);
-TSK_CREATE(tsk_led2);
+TSK_CREATE(led1_tcb);
+TSK_CREATE(led2_tcb);
 
 STATUS led1_handler(STATUS ucEvent){
   P1OUT ^= 0xAA;
@@ -26,8 +26,8 @@ STATUS led2_handler(STATUS ucEvent){
 }
 
 static task_entry_t tbl_usmartask[]={
-  {&tsk_led1,&led1_handler,1,"LED1_TSK"},
-  {&tsk_led2,&led2_handler,1,"LED2_TSK"},
+  {&led1_handler,&led1_tcb,1,"LED1_TSK"},
+  {&led2_handler,&led2_tcb,1,"LED2_TSK"},
   {0,0,0,""}};
   
 
