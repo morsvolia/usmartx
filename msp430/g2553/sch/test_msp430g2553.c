@@ -2,23 +2,23 @@
 #include <usmartx.h>
 
 
-#pragma vector=TIMERB0_VECTOR
-__interrupt void tmrb_isr(void){
-      uSMARTX_Tick();
+#pragma vector=TIMER1_A0_VECTOR
+__interrupt void tmra_isr(void){
+    uSMARTX_Tick();
 }
 
 TSK_CREATE(led1_tcb);
 TSK_CREATE(led2_tcb);
 
 STATUS led1_handler(STATUS ucEvent){
-  P1OUT ^= 0xAA;
+  P1OUT ^= BIT0;
   
   TSK_Sleep(TSK_Self(),100);
   return SYS_OK;
 }
 
 STATUS led2_handler(STATUS ucEvent){
-  P1OUT ^= 0x55;
+  P1OUT ^= BIT6;
 
   TSK_Sleep(TSK_Self(),100);
   return SYS_OK;
@@ -31,14 +31,14 @@ static task_entry_t tbl_usmartask[]={
   
 
 
-void setup_timerb(void){
-  TBCTL = 0; // stop timer b
-  TBCCR0  = 0x04;
-  TBCCTL0 = CCIE; // disable capture mode
-  TBCCTL1 = CAP; // disable capture mode
-  TBCCTL2 = CAP; // disable capture mode
-  //TimerB 8bit     ACLK       /8     upto CCR0  
-  TBCTL =  CNTL_3 + TBSSEL_1 + ID_3 + MC_1    ;
+void setup_timer1(void){
+  TA1CTL = 0; // stop timer a1
+  TA1CCR0  = 0x04;
+  TA1CCTL0 = CCIE; // disable capture mode
+  TA1CCTL1 = CAP; // disable capture mode
+  TA1CCTL2 = CAP; // disable capture mode
+  //TimerA1 ACLK       /8     upto CCR0  
+  TA1CTL =  TASSEL_1 + ID_3 + MC_1;
 }
 
 void setup_gpio(void){
@@ -49,9 +49,9 @@ void setup_gpio(void){
 }
 
 void setup_clk_src(void){
-  BCSCTL1 = CAL_BC1_16MHZ;
+  BCSCTL1 = CALBC1_16MHZ;
   BCSCTL2 = 0;
-  DCOCTL = CAL_DCO_16MHZ;  
+  DCOCTL = CALDCO_16MHZ;  
 }
 
 int main(void){
@@ -60,7 +60,7 @@ int main(void){
 
   setup_clk_src();
   setup_gpio();
-  setup_timerb();
+  setup_timer1();
 
   uSMARTX_Init(tbl_usmartask);
 
